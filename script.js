@@ -9,6 +9,36 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 var draggables = document.querySelectorAll(".draggable");
 var containers = document.querySelectorAll(".container");
+var diceButton = document.getElementById("roll-dice-button");
+diceButton.onclick = function (event) {
+    var diceOne = document.getElementById("dicerollOne");
+    var numberOne = Math.floor(Math.random() * (6 - 1) + 1);
+    diceOne.textContent = "" + numberOne;
+    var diceTwo = document.getElementById("dicerollTwo");
+    var numberTwo = Math.floor(Math.random() * (6 - 1) + 1);
+    diceTwo.textContent = "" + numberTwo;
+};
+var whiteDropZone = document.getElementById("white-dropzone");
+whiteDropZone.addEventListener("dragenter", function (event) {
+    if (draggables[name = "white"]) {
+        alert("Hej");
+    }
+    draggables.forEach(function (draggable) {
+        var ID = draggable.id;
+        console.log(ID);
+        draggable.classList.add("dragstop");
+    });
+});
+whiteDropZone.addEventListener("dragleave", function (event) {
+    if (draggables[name = "white"]) {
+        alert("Hej");
+    }
+    draggables.forEach(function (draggable) {
+        var ID = draggable.id;
+        console.log(ID);
+        draggable.classList.remove("dragstop");
+    });
+});
 draggables.forEach(function (draggable) {
     draggable.addEventListener("dragstart", function () {
         draggable.classList.add("dragging");
