@@ -9,8 +9,14 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+    <button id="start-game">
+        <h1><span id="start"></span></h1>
+    </button>
+    <h2><span id="countdown"></span></h2>
+    <h3><span id="playerturn">Player Turn: </span></h3>
     <section>
         <header>
+            <button id="passturn">Pass Turn</button>
             <div class="container" id="11">
                 <p class="draggable" name="black" draggable="true"></p>
                 <p class="draggable" name="black" draggable="true"></p>
@@ -22,9 +28,9 @@
             <div class="container" id="9"></div>
             <div class="container" id="8"></div>
             <div class="container" id="7">
-                <p class="draggable" name="white" draggable="true"></p>
-                <p class="draggable" name="white" draggable="true"></p>
-                <p class="draggable" name="white" draggable="true"></p>
+                <p class="draggable" name="white" id="0" draggable="true"></p>
+                <p class="draggable" name="white" id="1" draggable="true"></p>
+                <p class="draggable" name="white" id="2" draggable="true"></p>
             </div>
             <div class="container" id="6"></div>
 

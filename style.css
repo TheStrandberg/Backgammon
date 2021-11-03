@@ -6,17 +6,57 @@
 body {
   display: block;
   margin: 0 auto;
-  margin-top: 180px;
+  margin-top: 140px;
   width: 700px;
   background-image: url("images/background.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
-  
+}
+
+#passturn {
+    position: relative;
+    top: 18rem;
+    right: 12rem;
+    height: 50px;
+    width: 150px;
+}
+
+#playerturn {
+    /* display: inline; */
+    display: none;
+    position: relative;
+    bottom: 5rem;
+    left: 9rem;
+    width: 300px;
+    z-index: 1;
+    font-size: 50px;
+    background: none;
+}
+
+#start-game {
+    display: block;
+    /* display: none; */
+    margin: 0 auto;
+    width: 350px;
+    height: 200px;
+    background-color: rgb(197, 199, 206);
+    font-size: 25px;
+}
+
+#countdown {
+    text-align: center;
+    display: block;
+    /* display: none; */
+    margin: 0 auto;
+    font-size: 250px;
+    opacity: 100%;
+    transition: 1s;
 }
 
 section {
-  transform: scale(125%);
-  display: flex;
+  transform: scale(115%);
+  display: none;
+  /* display: flex; */
   height: 630px;
   background: url("images/board.jpg");
   background-repeat: no-repeat;
@@ -30,7 +70,7 @@ header {
 
 header .container {
   position: relative;
-  left: 23px;
+  right: 8rem;
   top: 30px;
   width: 40px;
   max-height: 220px;
@@ -41,7 +81,7 @@ header .container {
 
 #top-border {
     position: relative;
-    left: 23px;
+    right: 7.9rem;
     width: 8px;
     height: 315px;
     background-color: white;
@@ -49,7 +89,7 @@ header .container {
 
 #white-dropzone{
     position: fixed;
-    left: 49rem;
+    left: 47rem;
     top: 0px;
     width: 40px;
     height: 220px;
@@ -65,7 +105,7 @@ footer {
 
 footer .container {
   position: relative;
-  right: 863px;
+  right: 63.3rem;
   top: 370px;
   width: 40px;
   max-height: 230px;
@@ -78,7 +118,7 @@ footer .container {
 #bottom-border {
     position: relative;
     top: 315px;
-    right: 862px;
+    right: 63.2rem;
     width: 8px;
     height: 315px;
     background-color: black;
@@ -87,7 +127,7 @@ footer .container {
 #black-dropzone {
     position: fixed;
     top: 24.5rem;
-    right: -10rem;
+    right: -8rem;
     width: 40px;
     height: 220px;
     background-color: white;
@@ -128,13 +168,22 @@ footer .container {
     margin-bottom: 5px;
 }
 
+.dragstop[name="black"] {
+    width: 40px;
+    height: 10px;
+    border-radius: 2px 2px 2px 2px;
+    /* pointer-events: none; */
+    background-color: black;
+    margin-bottom: 5px;
+}
+
 .dice {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     top: 16.5rem;
-    right: -5.8rem;
+    right: 5.5rem;
     height: 50px;
     width: 50px;
     margin-left: 1rem;
@@ -145,7 +194,7 @@ footer .container {
 #roll-dice-button{
     position: relative;
     top: 20.5rem;
-    right: 0.9rem;
+    right: 12.1rem;
     width: 100px;
     height: 50px;
 }

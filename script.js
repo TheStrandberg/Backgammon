@@ -7,35 +7,90 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
+var section = document.querySelector("section");
 var draggables = document.querySelectorAll(".draggable");
 var containers = document.querySelectorAll(".container");
 var diceButton = document.getElementById("roll-dice-button");
+var whiteTileArray = [];
+var blackTileArray = [];
+var turn = true;
+var start = document.getElementById("start");
+start.textContent = "Begin!";
+var startGameButton = document.getElementById("start-game");
+startGameButton.addEventListener("click", function (event) {
+    var randomizer = Math.floor(Math.random() * (3 - 1) + 1);
+    if (randomizer === 1) {
+        start.textContent = "White Starts";
+        turn = true;
+    }
+    else {
+        start.textContent = "Black Starts";
+        turn = false;
+    }
+    setTimeout(function () {
+        startGameButton.style.display = "none";
+    }, 3000);
+    var countdown = document.getElementById("countdown");
+    setTimeout(function () {
+        countdown.textContent = "3";
+    }, 3000);
+    setTimeout(function () {
+        countdown.textContent = "2";
+    }, 4000);
+    setTimeout(function () {
+        countdown.textContent = "1";
+    }, 5000);
+    setTimeout(function () {
+        section.style.display = "flex";
+        countdown.style.display = "none";
+        playerTurn.style.display = "inline";
+    }, 6000);
+    var playerTurnButton = document.getElementById("playerturn");
+    //   playerTurnButton.addEventListener("click", (event) => {
+    //       if (turn === true){
+    //           turn = false;
+    //       }
+    //       else {
+    //           turn = true
+    //       }
+    //   })
+    var playerTurn = document.getElementById("playerturn");
+    if (turn === true) {
+        playerTurn.textContent = "Player Turn: White";
+        playerTurn.style.color = "white";
+    }
+    else {
+        playerTurn.textContent = "Player Turn: Black";
+        playerTurn.style.color = "black";
+    }
+});
+for (var i = 0; i < draggables.length; i++) {
+    if (i < 15) {
+        whiteTileArray.push[i];
+    }
+    else {
+        blackTileArray.push[i];
+    }
+}
 diceButton.onclick = function (event) {
     var diceOne = document.getElementById("dicerollOne");
-    var numberOne = Math.floor(Math.random() * (6 - 1) + 1);
+    var numberOne = Math.floor(Math.random() * (7 - 1) + 1);
     diceOne.textContent = "" + numberOne;
     var diceTwo = document.getElementById("dicerollTwo");
-    var numberTwo = Math.floor(Math.random() * (6 - 1) + 1);
+    var numberTwo = Math.floor(Math.random() * (7 - 1) + 1);
     diceTwo.textContent = "" + numberTwo;
 };
 var whiteDropZone = document.getElementById("white-dropzone");
-whiteDropZone.addEventListener("dragenter", function (event) {
-    if (draggables[name = "white"]) {
-        alert("Hej");
-    }
-    draggables.forEach(function (draggable) {
-        var ID = draggable.id;
-        console.log(ID);
-        draggable.classList.add("dragstop");
+{
+    whiteDropZone.addEventListener("dragenter", function (event) {
+        draggables.forEach(function (draggable) {
+            // draggable.id;
+            draggable.classList.add("dragstop");
+        });
     });
-});
+}
 whiteDropZone.addEventListener("dragleave", function (event) {
-    if (draggables[name = "white"]) {
-        alert("Hej");
-    }
     draggables.forEach(function (draggable) {
-        var ID = draggable.id;
-        console.log(ID);
         draggable.classList.remove("dragstop");
     });
 });
@@ -61,7 +116,7 @@ containers.forEach(function (container) {
     });
 });
 function getDragAfterElement(container, y) {
-    var draggableElements = __spreadArray([], container.querySelectorAll('.draggable:not(.dragging)'), true);
+    var draggableElements = __spreadArray([], container.querySelectorAll(".draggable:not(.dragging)"), true);
     return draggableElements.reduce(function (closest, child) {
         var box = child.getBoundingClientRect();
         var offset = y - box.top - box.height / 2;
