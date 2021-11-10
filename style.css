@@ -22,8 +22,8 @@ body {
 }
 
 #playerturn {
-    /* display: inline; */
-    display: none;
+    display: inline;
+    /* display: none; */
     position: relative;
     bottom: 5rem;
     left: 9rem;
@@ -34,8 +34,8 @@ body {
 }
 
 #start-game {
-    display: block;
-    /* display: none; */
+    /* display: block; */
+    display: none;
     margin: 0 auto;
     width: 350px;
     height: 200px;
@@ -45,8 +45,8 @@ body {
 
 #countdown {
     text-align: center;
-    display: block;
-    /* display: none; */
+    /* display: block; */
+    display: none;
     margin: 0 auto;
     font-size: 250px;
     opacity: 100%;
@@ -55,8 +55,8 @@ body {
 
 section {
   transform: scale(115%);
-  display: none;
-  /* display: flex; */
+  /* display: none; */
+  display: flex;
   height: 630px;
   background: url("images/board.jpg");
   background-repeat: no-repeat;
@@ -84,7 +84,7 @@ header .container {
     right: 7.9rem;
     width: 8px;
     height: 315px;
-    background-color: white;
+    background-color: black;
 }
 
 #white-dropzone{
@@ -121,7 +121,7 @@ footer .container {
     right: 63.2rem;
     width: 8px;
     height: 315px;
-    background-color: black;
+    background-color: white;
 }
 
 #black-dropzone {

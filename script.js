@@ -45,16 +45,20 @@ startGameButton.addEventListener("click", function (event) {
         countdown.style.display = "none";
         playerTurn.style.display = "inline";
     }, 6000);
-    var playerTurnButton = document.getElementById("playerturn");
-    //   playerTurnButton.addEventListener("click", (event) => {
-    //       if (turn === true){
-    //           turn = false;
-    //       }
-    //       else {
-    //           turn = true
-    //       }
-    //   })
-    var playerTurn = document.getElementById("playerturn");
+});
+var playerTurnButton = document.getElementById("passturn");
+var playerTurn = document.getElementById("playerturn");
+var randomizer = Math.floor(Math.random() * (3 - 1) + 1);
+if (randomizer === 1) {
+    playerTurn.textContent = "White Starts";
+    turn = true;
+}
+else {
+    playerTurn.textContent = "Black Starts";
+    turn = false;
+}
+playerTurnButton.addEventListener("click", function (event) {
+    turn = !turn;
     if (turn === true) {
         playerTurn.textContent = "Player Turn: White";
         playerTurn.style.color = "white";
@@ -63,6 +67,11 @@ startGameButton.addEventListener("click", function (event) {
         playerTurn.textContent = "Player Turn: Black";
         playerTurn.style.color = "black";
     }
+    var diceOne = document.getElementById("dicerollOne");
+    var diceTwo = document.getElementById("dicerollTwo");
+    diceOne.textContent = "";
+    diceTwo.textContent = "";
+    diceButton.disabled = false;
 });
 for (var i = 0; i < draggables.length; i++) {
     if (i < 15) {
@@ -73,6 +82,7 @@ for (var i = 0; i < draggables.length; i++) {
     }
 }
 diceButton.onclick = function (event) {
+    diceButton.disabled = true;
     var diceOne = document.getElementById("dicerollOne");
     var numberOne = Math.floor(Math.random() * (7 - 1) + 1);
     diceOne.textContent = "" + numberOne;
@@ -81,24 +91,33 @@ diceButton.onclick = function (event) {
     diceTwo.textContent = "" + numberTwo;
 };
 var whiteDropZone = document.getElementById("white-dropzone");
-{
-    whiteDropZone.addEventListener("dragenter", function (event) {
-        draggables.forEach(function (draggable) {
-            // draggable.id;
-            draggable.classList.add("dragstop");
-        });
-    });
-}
+whiteDropZone.addEventListener("dragenter", function (event) {
+    var item = event.target.id;
+    var hej = event.target.getAttribute(item);
+    console.log(hej);
+});
 whiteDropZone.addEventListener("dragleave", function (event) {
     draggables.forEach(function (draggable) {
         draggable.classList.remove("dragstop");
     });
 });
+var startingContainer = 0;
 draggables.forEach(function (draggable) {
     draggable.addEventListener("dragstart", function () {
         draggable.classList.add("dragging");
+        var currentPiece = document.querySelector(".dragging");
+        startingContainer = parseInt(currentPiece.parentElement.id);
+        // console.log(startingContainer);
     });
     draggable.addEventListener("dragend", function () {
+        var currentPiece = document.querySelector(".dragging");
+        var endContainer = parseInt(currentPiece.parentElement.id);
+        // console.log(endContainer);
+        if ((turn == false && startingContainer > endContainer) ||
+            (turn == true && startingContainer < endContainer)) {
+            var moveBackTo = document.getElementById(startingContainer);
+            moveBackTo.appendChild(currentPiece);
+        }
         draggable.classList.remove("dragging");
     });
 });
@@ -106,12 +125,12 @@ containers.forEach(function (container) {
     container.addEventListener("dragover", function (event) {
         event.preventDefault();
         var afterElement = getDragAfterElement(container, event.clientY);
-        var draggable = document.querySelector(".dragging");
+        var currentPiece = document.querySelector(".dragging");
         if (afterElement == null) {
-            container.appendChild(draggable);
+            container.appendChild(currentPiece);
         }
         else {
-            container.insertBefore(draggable, afterElement);
+            container.insertBefore(currentPiece, afterElement);
         }
     });
 });

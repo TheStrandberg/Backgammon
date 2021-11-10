@@ -19,8 +19,7 @@ startGameButton.addEventListener("click", (event) => {
   if (randomizer === 1) {
     start.textContent = "White Starts";
     turn = true;
-  } 
-  else {
+  } else {
     start.textContent = "Black Starts";
     turn = false;
   }
@@ -42,27 +41,36 @@ startGameButton.addEventListener("click", (event) => {
     countdown.style.display = "none";
     playerTurn.style.display = "inline";
   }, 6000);
-  
-  const playerTurnButton = document.getElementById("playerturn")! as HTMLButtonElement; 
-
-//   playerTurnButton.addEventListener("click", (event) => {
-//       if (turn === true){
-//           turn = false;
-//       }
-//       else {
-//           turn = true
-//       }
-//   })
-  let playerTurn = document.getElementById("playerturn") as HTMLElement;
-    if (turn === true) {
-        playerTurn.textContent = "Player Turn: White"; 
-        playerTurn.style.color = "white"; 
-    }   
-    else {
-        playerTurn.textContent = "Player Turn: Black";  
-        playerTurn.style.color = "black";
-    }
 });
+
+
+const playerTurnButton = document.getElementById("passturn")! as HTMLButtonElement;
+const playerTurn = document.getElementById("playerturn") as HTMLElement;
+  
+let randomizer: number = Math.floor(Math.random() * (3 - 1) + 1);
+if (randomizer === 1) {
+  playerTurn.textContent = "White Starts";
+  turn = true;
+} else {
+  playerTurn.textContent = "Black Starts";
+  turn = false;
+}
+
+playerTurnButton.addEventListener("click", (event) => {
+  turn = !turn;  
+  if (turn === true) {
+    playerTurn.textContent = "Player Turn: White";
+    playerTurn.style.color = "white";
+  } else {
+    playerTurn.textContent = "Player Turn: Black";
+    playerTurn.style.color = "black";
+  }
+  let diceOne = document.getElementById("dicerollOne") as HTMLElement;
+  let diceTwo = document.getElementById("dicerollTwo") as HTMLElement;
+  diceOne.textContent = "";
+  diceTwo.textContent = "";
+  diceButton.disabled = false;
+})
 
 for (var i = 0; i < draggables.length; i++) {
   if (i < 15) {
@@ -73,6 +81,7 @@ for (var i = 0; i < draggables.length; i++) {
 }
 
 diceButton.onclick = (event) => {
+  diceButton.disabled = true;
   let diceOne = document.getElementById("dicerollOne") as HTMLElement;
   let numberOne: number = Math.floor(Math.random() * (7 - 1) + 1);
   diceOne.textContent = "" + numberOne;
@@ -82,15 +91,15 @@ diceButton.onclick = (event) => {
   diceTwo.textContent = "" + numberTwo;
 };
 
-const whiteDropZone = document.getElementById("white-dropzone") as HTMLElement;
-{
-  whiteDropZone.addEventListener("dragenter", (event) => {
-    draggables.forEach((draggable: Element) => {
-      // draggable.id;
-      draggable.classList.add("dragstop");
-    });
-  });
-}
+const whiteDropZone = document.getElementById(
+  "white-dropzone"
+) as HTMLAreaElement;
+
+whiteDropZone.addEventListener("dragenter", (event) => {
+  var item = event.target.id;
+  var hej = event.target.getAttribute(item);
+  console.log(hej);
+});
 
 whiteDropZone.addEventListener("dragleave", (event) => {
   draggables.forEach((draggable: Element) => {
@@ -98,11 +107,25 @@ whiteDropZone.addEventListener("dragleave", (event) => {
   });
 });
 
+let startingContainer = 0;
 draggables.forEach((draggable: Element) => {
   draggable.addEventListener("dragstart", () => {
     draggable.classList.add("dragging");
+    let currentPiece = document.querySelector(".dragging");
+    startingContainer = parseInt(currentPiece.parentElement.id);
+    // console.log(startingContainer);
   });
   draggable.addEventListener("dragend", () => {
+    let currentPiece = document.querySelector(".dragging");
+    let endContainer = parseInt(currentPiece.parentElement.id);
+    // console.log(endContainer);
+    if (
+      (turn == false && startingContainer > endContainer) ||
+      (turn == true && startingContainer < endContainer)
+    ) {
+      let moveBackTo = document.getElementById(startingContainer);
+      moveBackTo.appendChild(currentPiece);
+    }
     draggable.classList.remove("dragging");
   });
 });
@@ -111,11 +134,11 @@ containers.forEach((container: Element) => {
   container.addEventListener("dragover", (event) => {
     event.preventDefault();
     const afterElement = getDragAfterElement(container, event.clientY);
-    const draggable = document.querySelector(".dragging");
+    const currentPiece = document.querySelector(".dragging");
     if (afterElement == null) {
-      container.appendChild(draggable);
+      container.appendChild(currentPiece);
     } else {
-      container.insertBefore(draggable, afterElement);
+      container.insertBefore(currentPiece, afterElement);
     }
   });
 });
